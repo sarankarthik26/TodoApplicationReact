@@ -1,16 +1,18 @@
 import { useState } from "react";
+import { useStore } from "../../App";
 import loginService from "./LoginService";
 
-const Login = ({ setIsAuthenticated }) => {
+const Login = () => {
 
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [error, setError] = useState(false);
+    const { setUserName } = useStore();
 
     const handleLoginSubmit = async (e) => {
         e.preventDefault();
-        const { isAuthenticated, isError } = await loginService(username, password);
-        setIsAuthenticated(isAuthenticated);
+        const { loggedInUser, isError } = await loginService(username, password);
+        setUserName(loggedInUser);
         setError(isError);
     }
 

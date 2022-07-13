@@ -1,8 +1,9 @@
 import axios from "axios";
 import { urls } from "../../urls";
 
+
 const loginService = async (username, password) => {
-    let isAuthenticated;
+    let loggedInUser;
     var isError = false;
 
     const config = {
@@ -11,20 +12,19 @@ const loginService = async (username, password) => {
         }
     };
 
-    try {
-        await axios.get(`${urls.springUrl}/username`, config);
+    await axios.get(`${urls.springUrl}/username`, config).then((response) => {
         localStorage.setItem("token", getToken(username, password));
-        isAuthenticated = true;
+        loggedInUser = response.data.username;
         isError = false;
-    }
-    catch (error) {
-        isAuthenticated = false;
+    }).catch((error) => {
+        loggedInUser = null;
         isError = true;
         localStorage.removeItem("token");
-    }
+    })
 
-    return ({isAuthenticated, isError});
+    return ({ loggedInUser, isError });
 }
+
 
 function getToken(username, password) {
     return 'Basic ' + window.btoa(username + ":" + password);
