@@ -13,13 +13,13 @@ const loginService = async (username, password) => {
     };
 
     await axios.get(`${urls.springUrl}/username`, config).then((response) => {
-        localStorage.setItem("token", getToken(username, password));
+        sessionStorage.setItem("token", getToken(username, password));
         loggedInUser = response.data.username;
         isError = false;
     }).catch((error) => {
         loggedInUser = null;
-        isError = true;
-        localStorage.removeItem("token");
+        isError = error.message;
+        sessionStorage.removeItem("token");
     })
 
     return ({ loggedInUser, isError });
