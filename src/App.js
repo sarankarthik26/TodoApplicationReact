@@ -4,6 +4,8 @@ import { persist } from "zustand/middleware";
 import './App.css';
 import Login from './components/login/login';
 import ProtectedRoute from "./components/ProtectedRoute";
+import Todos from "./components/todos/todos";
+import WelcomePage from "./components/Welcome";
 
 export const useStore = create(persist(
   (set, get) => ({
@@ -23,9 +25,10 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route index element={<p>Hello, {UserName ? UserName : "User"}</p>} />
+        <Route index element={<WelcomePage UserName={UserName} />} />
         <Route path="/todos" element={<ProtectedRoute isAuthenticated={UserName} />}>
           <Route index element={<p>All the elements</p>} />
+          <Route path="all" element={<Todos />} />
         </Route>
         <Route path="/login" element={<Login />} />
       </Routes>
