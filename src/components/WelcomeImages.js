@@ -40,7 +40,7 @@ const itemData = [
 
 const WelcomeImages = () => {
     return (
-        <Grid sx={{ width: { xs: 425, md: 425, lg:500 }, height: { xs: 375, md: 375, lg:450 }, overflowY: 'scroll', backdropFilter: "blur(1px)" }} xs={10} sm={8} lg={6}>
+        <Grid sx={{ width: { xs: "42.4575vh", md: 425, lg:500 }, height: { xs: "37.4625vh", md: 375, lg:450 }, overflowY: 'scroll', backdropFilter: "blur(1px)" }} xs={10} sm={8} lg={6}>
             <ImageList variant="masonry" cols={2} gap={6}>
                 {itemData.map((item) => (
                     <ImageListItem key={item.title}>

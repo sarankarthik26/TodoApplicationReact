@@ -9,8 +9,8 @@ const TodoAppBar = () => {
 
     return (
         <AppBar elevation={0} color="transparent" position="static"
-            sx={{ backdropFilter: "blur(3px)", width: "80%", margin: "0 auto" }}>
-            <Toolbar sx={{ marginTop: "3vh", marginBottom: "3vh" }}>
+            sx={{ backdropFilter: "blur(3px)", margin: "0 auto" }}>
+            <Toolbar sx={{ marginTop: "3vh", marginBottom: "3vh", width: "80%", marginX: "auto" }}>
 
                 <IconButton sx={{ color: "white" }} onClick={() => navigate("/")}>
                     <FactCheckOutlinedIcon />
