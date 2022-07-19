@@ -26,8 +26,10 @@ const WelcomePage = ({ UserName }) => {
     return (
         <div className={classes.welcomePage} >
             <TodoAppBar />
-            <Box marginTop="10%" display={"flex"} flexDirection={{ xs: "column-reverse", md: "row" }} justifyContent={"center"} alignItems={"center"}>
-                <WelcomeBody />
+            <Box marginTop="10%" display={"flex"} flexDirection={{ xs: "column-reverse", md: "row" }} justifyContent={"center"} alignItems={"center"} bgcolor={"rgb(0,0,0,0.5)"}>
+                <Box paddingRight={{ xs: "0px", md: "30px" }}>
+                    <WelcomeBody />
+                </Box>
                 <WelcomeImages />
             </Box>
         </div>

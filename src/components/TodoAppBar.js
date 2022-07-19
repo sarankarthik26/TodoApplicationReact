@@ -16,7 +16,7 @@ const TodoAppBar = () => {
                     <FactCheckOutlinedIcon />
                 </IconButton>
 
-                <Typography variant='h4' color="white" fontFamily={'Annie Use Your Telescope'} align="left" fontWeight="bold" sx={{ flexGrow: 1 }}>
+                <Typography variant='h4' color="white" fontFamily={'Annie Use Your Telescope'} align="left" fontWeight="bold" sx={{ flexGrow: 1 }} fontSize={"3.39660vh"}>
                     To-Do List
                 </Typography>
 
