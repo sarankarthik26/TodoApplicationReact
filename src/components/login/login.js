@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useStore } from "../../App";
 import loginService from "./LoginService";
@@ -7,9 +7,11 @@ const Login = ({ location }) => {
 
     const navigate = useNavigate();
     const { UserName, setUserName } = useStore();
-    if (UserName) {
-        navigateWhenLoggedIn();
-    }
+
+
+    useEffect(() => {
+        if (UserName) { navigateWhenLoggedIn(); }
+    }, [UserName])
 
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
@@ -20,9 +22,6 @@ const Login = ({ location }) => {
         const { loggedInUser, isError } = await loginService(username, password);
         setUserName(loggedInUser);
         setError(isError);
-        if (loggedInUser) {
-            navigateWhenLoggedIn();
-        }
     }
 
     function navigateWhenLoggedIn() {
