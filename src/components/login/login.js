@@ -5,6 +5,7 @@ import loginService from "./LoginService";
 
 const Login = ({ location }) => {
 
+    const navigate = useNavigate();
     const { UserName, setUserName } = useStore();
     if (UserName) {
         navigateWhenLoggedIn();
@@ -13,7 +14,6 @@ const Login = ({ location }) => {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [error, setError] = useState(false);
-    const navigate = useNavigate();
 
     const handleLoginSubmit = async (e) => {
         e.preventDefault();

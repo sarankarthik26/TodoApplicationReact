@@ -14,7 +14,7 @@ const WelcomeBody = () => {
                 <Typography variant='h6' marginTop={{ xs: "4vh", md: "5vh" }} marginBottom={{ xs: "3vh", md: "5vh" }} fontSize={"1.998vh"} fontFamily={"Poppins, sans-serif"}>
                     A friendly companion to help you keep track of all your todos and lists. Use To-do list to stay organised and manage your day-to-day like a champ!
                 </Typography>
-                <Button variant='contained' onClick={() => navigate("/login")} endIcon={<KeyboardArrowRightIcon />} sx={[
+                <Button variant='contained' onClick={() => navigate("/todos")} endIcon={<KeyboardArrowRightIcon />} sx={[
                     { color: "white", backgroundColor: "green", fontSize: "1.3987vh", fontFamily: "'IBM Plex Sans'" },
                     { '&:hover': { color: 'green', backgroundColor: 'white' } }
                 ]}> Start your journey </Button>
