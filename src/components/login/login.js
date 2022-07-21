@@ -1,10 +1,31 @@
+import { Typography } from "@mui/material";
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import { makeStyles } from '@mui/styles';
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useStore } from "../../App";
 import loginService from "./LoginService";
 
+const useLoginStyles = makeStyles({
+    loginPage: {
+        minHeight: "100vh",
+        backgroundImage: `url(${process.env.PUBLIC_URL + "todoWelcome.jpg"})`,
+        backgroundSize: "cover",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    loginForm: {
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "stretch",
+    }
+})
+
 const Login = ({ location }) => {
 
+    const loginClasses = useLoginStyles();
     const navigate = useNavigate();
     const { UserName, setUserName } = useStore();
 
@@ -29,14 +50,17 @@ const Login = ({ location }) => {
     }
 
     return (
-        <form onSubmit={handleLoginSubmit}>
-            <label>Username</label>
-            <input type={"text"} placeholder="Enter username" onChange={e => setUsername(e.target.value)} />
-            <label>Password</label>
-            <input type={"password"} onChange={e => setPassword(e.target.value)} />
-            <button type="submit">Login</button>
-            {error && <p>Login Failed</p>}
-        </form>
+        <div className={loginClasses.loginPage}>
+            <form onSubmit={handleLoginSubmit} className={loginClasses.loginForm}>
+                <TextField label="User Name" type="text" placeholder="Enter User Name" onChange={e => setUsername(e.target.value)} required />
+                <TextField label="Password" type={"password"} onChange={e => setPassword(e.target.value)} required />
+                <Button type="submit" variant="contained">Login</Button>
+            </form>
+            <div>
+                {error && <Typography>Login Failed</Typography>}
+            </div>
+
+        </div>
     );
 }
 
