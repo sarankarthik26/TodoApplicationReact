@@ -10,8 +10,8 @@ const TodoAppBar = () => {
     const { UserName } = useStore();
 
     return (
-        <AppBar elevation={0} color="transparent" position="static"
-            sx={{ backdropFilter: "blur(3px)", margin: "0 auto" }}>
+        <AppBar elevation={0} color="transparent" position="fixed"
+            sx={{ backdropFilter: "blur(3px)", margin: "0 auto", top: 0 }}>
             <Toolbar sx={{ marginTop: "3vh", marginBottom: "3vh", width: "80%", marginX: "auto" }}>
 
                 <IconButton sx={{ color: "white" }} onClick={() => navigate("/")}>
