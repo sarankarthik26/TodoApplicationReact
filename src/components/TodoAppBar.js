@@ -2,10 +2,12 @@ import FactCheckOutlinedIcon from '@mui/icons-material/FactCheckOutlined';
 import { AppBar, IconButton, Toolbar, Typography } from "@mui/material";
 import Button from '@mui/material/Button';
 import { useNavigate } from "react-router-dom";
+import { useStore } from "../App";
 
 const TodoAppBar = () => {
 
     const navigate = useNavigate();
+    const { UserName } = useStore();
 
     return (
         <AppBar elevation={0} color="transparent" position="static"
@@ -20,10 +22,15 @@ const TodoAppBar = () => {
                     To-Do List
                 </Typography>
 
-                <Button variant='contained' onClick={() => navigate("/login")} sx={[
-                    { color: "green", backgroundColor: "white" },
-                    { '&:hover': { color: 'white', backgroundColor: 'green' } }
-                ]}> Login </Button>
+                {UserName ?
+                    <Typography color={"white"} fontFamily={"poppins"} fontWeight={700}>Vanakkam {UserName}!</Typography> :
+
+                    <Button variant='contained' onClick={() => navigate("/login")} sx={[
+                        { color: "green", backgroundColor: "white" },
+                        { '&:hover': { color: 'white', backgroundColor: 'green' } }
+                    ]}> Login </Button>
+
+                }
 
             </Toolbar>
         </AppBar>
