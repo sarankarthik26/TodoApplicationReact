@@ -20,7 +20,7 @@ const useStyles = makeStyles({
 
     },
     background: {
-        backgroundImage: `url(${process.env.PUBLIC_URL + "todoWelcome.jpg"})`,
+        backgroundImage: `url(${process.env.PUBLIC_URL + "pexelsBgTry4.jpg"})`,
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
     }
@@ -33,7 +33,7 @@ const WelcomePage = ({ UserName }) => {
         <div className={classes.background}>
             <div className={classes.welcomePage} >
                 <TodoAppBar />
-                <Box display={"flex"} flexDirection={{ xs: "column-reverse", md: "row" }} justifyContent={"center"} alignItems={"center"} bgcolor={"rgb(0,0,0,0.5)"}
+                <Box display={"flex"} flexDirection={{ xs: "column-reverse", md: "row" }} justifyContent={"center"} alignItems={"center"}
                     sx={{ borderRadius: "12px" }}>
                     <Box paddingRight={{ xs: "0px", md: "30px" }}>
                         <WelcomeBody />
