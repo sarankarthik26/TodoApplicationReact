@@ -1,20 +1,113 @@
+import DoneIcon from '@mui/icons-material/Done';
+import DoneOutlineIcon from '@mui/icons-material/DoneOutline';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ListRoundedIcon from '@mui/icons-material/ListRounded';
+import NoteAltOutlinedIcon from '@mui/icons-material/NoteAltOutlined';
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import { Card } from "@mui/material";
+import Avatar from '@mui/material/Avatar';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardHeader from '@mui/material/CardHeader';
+import Checkbox from '@mui/material/Checkbox';
+import Collapse from '@mui/material/Collapse';
+import { pink, red, yellow } from '@mui/material/colors';
+import IconButton from '@mui/material/IconButton';
+import { styled } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
 import React, { useState } from "react";
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
-const List = ({ id, name, isDone }) => {
-    const [tick, setTick] = useState(isDone);
-    console.log(id);
+const ExpandMore = styled((props) => {
+    const { expand, ...other } = props;
+    return <IconButton {...other} />;
+})(({ theme, expand }) => ({
+    transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
+    marginLeft: 'auto',
+    transition: theme.transitions.create('transform', {
+        duration: theme.transitions.duration.shortest,
+    }),
+}));
+
+function getAvatar(param) {
+    switch (param) {
+        case "TODOS":
+            return (
+                <Avatar sx={{ bgcolor: red[500] }} >
+                    <ListRoundedIcon />
+                </Avatar>
+            )
+        case "SHOPPING":
+            return (
+                <Avatar sx={{ bgcolor: pink[500] }} >
+                    <ShoppingCartOutlinedIcon />
+                </Avatar>
+            )
+        case "PROJECT":
+            return (
+                <Avatar sx={{ bgcolor: yellow[500] }} >
+                    <NoteAltOutlinedIcon />
+                </Avatar>
+            )
+        default:
+            return "T";
+    }
+}
+
+const CardList = ({ element, persistTickUpdate, persistDelete }) => {
+    const [expanded, setExpanded] = React.useState(false);
+    const handleExpandClick = () => {
+        setExpanded(!expanded);
+    };
+
+    const [tick, setTick] = useState(element.isDone);
+    const [isDeleted, setIsDeleted] = useState(false);
+    console.log(element.id);
+
+
+    const handleTick = () => {
+        setTick(!tick);
+        persistTickUpdate(element.id, !tick);
+    }
+
+    const deleteFunction = () => {
+        persistDelete(element.id)
+        setIsDeleted(true);
+    }
+
     return (
-        <div style={{ display: "flex", boxShadow: "2px 2px" }}>
-            <input type="checkbox" checked={tick} onChange={() => setTick(!tick)} />
-            <p>{name}</p>
-            <div style={{ display:"flex", alignItems: "center", justifyItems:"center", paddingLeft:"5px"}}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-trash" viewBox="0 0 16 16">
-                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
-                    <path fillRule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
-                </svg>
-            </div>
-        </div>
+        <>
+            <Card sx={{ maxWidth: 345, display: (isDeleted ? "none" : "") }}>
+                <CardHeader
+                    avatar={getAvatar(element.category)}
+                    action={
+                        <ExpandMore expand={expanded} onClick={handleExpandClick}>
+                            <ExpandMoreIcon />
+                        </ExpandMore>
+                    }
+                    title={<Typography>{element.todoName}</Typography>} />
+
+                <Collapse in={expanded} timeout="auto" unmountOnExit>
+                    <CardContent>
+                        <Typography variant="body1">Category - {element.category}</Typography>
+                        <Typography paragraph sx={{ "textAlign": "justify" }}>{element.description}</Typography>
+                    </CardContent>
+                </Collapse>
+
+                <CardActions disableSpacing>
+                    <Checkbox checked={tick} onChange={handleTick} icon={<DoneOutlineIcon />} checkedIcon={<DoneIcon sx={{ "color": "green" }} />} />
+                    {/* <IconButton>
+                        <EditIcon />
+                    </IconButton> */}
+                    <IconButton onClick={deleteFunction}>
+                        <DeleteOutlineIcon />
+                    </IconButton>
+
+                </CardActions>
+
+            </Card>
+        </>
     );
 }
 
-export default List;
+export default CardList;

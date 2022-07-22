@@ -4,6 +4,8 @@ import { persist } from "zustand/middleware";
 import './App.css';
 import Login from './components/login/login';
 import ProtectedRoute from "./components/ProtectedRoute";
+import NewTodoPage from "./components/todos/NewTodoPage";
+import TodoMasonry from "./components/todos/todoMasonry";
 import Todos from "./components/todos/todos";
 import WelcomePage from "./components/Welcome";
 
@@ -27,8 +29,8 @@ function App() {
       <Routes>
         <Route index element={<WelcomePage UserName={UserName} />} />
         <Route path="/todos" element={<ProtectedRoute isAuthenticated={UserName} />}>
-          <Route index element={<p>All the elements</p>} />
-          <Route path="all" element={<Todos />} />
+          <Route index element={<Todos BodyComponent={<TodoMasonry />} />} />
+          <Route path="new" element={<Todos BodyComponent={<NewTodoPage />} />} />
         </Route>
         <Route path="/login" element={<Login />} />
       </Routes>

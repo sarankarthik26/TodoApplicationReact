@@ -1,12 +1,40 @@
-import List from "./list";
+import FactCheckOutlinedIcon from '@mui/icons-material/FactCheckOutlined';
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import { AppBar, Box, Container, Grid, IconButton, Toolbar, Typography } from "@mui/material";
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import TodoDrawer from './TodoDrawer';
 
-const Todos = () => {
-    const response = [{ "id": 1, "todoName": "TestTodo-1", "isDone": false }, { "id": 2, "todoName": "TestTodo-2", "isDone": true }]
+const Todos = ({ BodyComponent }) => {
+    const navigate = useNavigate();
+    const [openDrawer, setOpenDrawer] = useState(false);
 
     return (
-        response.map(element => {
-            return <List key={element.id} id={element.id} name={element.todoName} isDone={element.isDone} />
-        })
+        <Grid>
+            <Box width="100%" margin={"0 auto"} display="flex" justifyContent={"center"} paddingTop={"125px"}>
+                <AppBar elevation={0} color="transparent" position="fixed" sx={{ top: 0 }}>
+                    <Toolbar sx={{ marginTop: "3vh", marginBottom: "3vh", width: "80%", marginX: "auto" }}>
+                        <IconButton sx={{ "position": "fixed", "left": "5vw", "cursor": "pointer" }} onClick={() => setOpenDrawer(true)}>
+                            <NavigateNextIcon />
+                        </IconButton>
+
+                        <IconButton sx={{ color: "black" }} onClick={() => navigate("/")}>
+                            <FactCheckOutlinedIcon />
+                        </IconButton>
+                        <Typography variant='h4' color="black" fontFamily={'Annie Use Your Telescope'} align="left" fontWeight="bold" sx={{ flexGrow: 1 }} fontSize={"3.39660vh"}>
+                            To-Do List
+                        </Typography>
+                    </Toolbar>
+                </AppBar>
+
+                <TodoDrawer openDrawer={openDrawer} setOpenDrawer={setOpenDrawer} />
+
+                <Container>
+                    {BodyComponent}
+                </Container>
+            </Box>
+        </Grid >
+
     )
 }
 
