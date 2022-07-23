@@ -7,7 +7,17 @@ const config = {
     }
 };
 
-export const fetcher = url => axios.get(url, config).then(res => res.data)
+export const getter = (url, setData, setError) => {
+    config.headers.Authorization = sessionStorage.getItem("token");
+
+    axios.get(urls.springUrl + url, config).then(res => {
+        setData(res.data);
+        setError(null);
+    }).catch(err => {
+        setData(null);
+        setError(err);
+    })
+}
 
 export const patcher = (url, payload) => {
     axios.patch(urls.springUrl + url, payload, config);
