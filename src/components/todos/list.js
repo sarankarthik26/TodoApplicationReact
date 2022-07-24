@@ -18,7 +18,7 @@ import Typography from '@mui/material/Typography';
 import React, { useState } from "react";
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
-const ExpandMore = styled((props) => {
+export const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
     return <IconButton {...other} />;
 })(({ theme, expand }) => ({
@@ -29,7 +29,7 @@ const ExpandMore = styled((props) => {
     }),
 }));
 
-function getAvatar(param) {
+export const getAvatar = (param) => {
     switch (param) {
         case "TODOS":
             return (
