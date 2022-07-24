@@ -23,13 +23,18 @@ const TodoMasonry = () => {
         deleter(`/todos/${id}`);
     }
 
+    const persistEdit = (id, desc) => {
+        console.log("edit", id, desc);
+        patcher(`/todos/${id}`, { "description": desc })
+    }
+
     return (
         <>
             {
                 data
                     ? <Masonry columns={3} spacing={3}>
                         {data.map(element => {
-                            return <CardList key={element.id} element={element} persistTickUpdate={persistTickUpdate} persistDelete={persistDelete} />
+                            return <CardList key={element.id} element={element} persistTickUpdate={persistTickUpdate} persistDelete={persistDelete} persistEdit={persistEdit} />
                         })}
                     </Masonry>
                     : <Box sx={{ display: 'flex', justifyContent: "center", width: "inherit" }}>

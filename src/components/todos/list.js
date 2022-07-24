@@ -1,10 +1,12 @@
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import DoneIcon from '@mui/icons-material/Done';
 import DoneOutlineIcon from '@mui/icons-material/DoneOutline';
+import EditIcon from '@mui/icons-material/Edit';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ListRoundedIcon from '@mui/icons-material/ListRounded';
 import NoteAltOutlinedIcon from '@mui/icons-material/NoteAltOutlined';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import { Card } from "@mui/material";
+import { Card, TextField } from "@mui/material";
 import Avatar from '@mui/material/Avatar';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -16,7 +18,7 @@ import IconButton from '@mui/material/IconButton';
 import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import React, { useState } from "react";
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 
 export const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -54,7 +56,8 @@ export const getAvatar = (param) => {
     }
 }
 
-const CardList = ({ element, persistTickUpdate, persistDelete }) => {
+
+const CardList = ({ element, persistTickUpdate, persistDelete, persistEdit }) => {
     const [expanded, setExpanded] = React.useState(false);
     const handleExpandClick = () => {
         setExpanded(!expanded);
@@ -62,8 +65,9 @@ const CardList = ({ element, persistTickUpdate, persistDelete }) => {
 
     const [tick, setTick] = useState(element.isDone);
     const [isDeleted, setIsDeleted] = useState(false);
+    const [edit, setEdit] = useState(false);
+    const [desc, setDesc] = useState(element.description);
     console.log(element.id);
-
 
     const handleTick = () => {
         setTick(!tick);
@@ -73,6 +77,11 @@ const CardList = ({ element, persistTickUpdate, persistDelete }) => {
     const deleteFunction = () => {
         persistDelete(element.id)
         setIsDeleted(true);
+    }
+
+    const handleEdit = () => {
+        persistEdit(element.id, desc);
+        setEdit(false);
     }
 
     return (
@@ -88,17 +97,31 @@ const CardList = ({ element, persistTickUpdate, persistDelete }) => {
                     title={<Typography>{element.todoName}</Typography>} />
 
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
-                    <CardContent>
-                        <Typography variant="body1">Category - {element.category}</Typography>
-                        <Typography paragraph sx={{ "textAlign": "justify" }}>{element.description}</Typography>
+                    <CardContent sx={{ "display": "flex", "flexDirection": "column" }}>
+                        <Typography variant="body1" paddingBottom={"1em"}>Category - {element.category}</Typography>
+                        {edit
+                            ? <TextField label="description" sx={{ "textAlign": "justify" }} multiline value={desc} onChange={(e) => setDesc(e.target.value)} />
+                            : <Typography paragraph sx={{ "textAlign": "justify" }}>{desc}</Typography>
+                        }
                     </CardContent>
                 </Collapse>
 
                 <CardActions disableSpacing>
                     <Checkbox checked={tick} onChange={handleTick} icon={<DoneOutlineIcon />} checkedIcon={<DoneIcon sx={{ "color": "green" }} />} />
-                    {/* <IconButton>
-                        <EditIcon />
-                    </IconButton> */}
+                    {edit
+                        ? <>
+                            <IconButton onClick={handleEdit}>
+                                <EditIcon />
+                            </IconButton>
+                        </>
+                        : <>
+                            <IconButton onClick={() => {
+                                setEdit(true);
+                                setExpanded(true);
+                            }}>
+                                <EditOutlinedIcon />
+                            </IconButton>
+                        </>}
                     <IconButton onClick={deleteFunction}>
                         <DeleteOutlineIcon />
                     </IconButton>
