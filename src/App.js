@@ -3,6 +3,7 @@ import create from "zustand";
 import { persist } from "zustand/middleware";
 import './App.css';
 import Login from './components/login/login';
+import Logout from "./components/login/logout";
 import ProtectedRoute from "./components/ProtectedRoute";
 import NewTodoPage from "./components/todos/NewTodoPage";
 import TodoMasonry from "./components/todos/todoMasonry";
@@ -33,6 +34,7 @@ function App() {
           <Route path="new" element={<Todos BodyComponent={<NewTodoPage />} />} />
         </Route>
         <Route path="/login" element={<Login />} />
+        <Route path="/logout" element={<ProtectedRoute isAuthenticated={UserName}><Logout /></ProtectedRoute>} />
       </Routes>
     </div>
   );

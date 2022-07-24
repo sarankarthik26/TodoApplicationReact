@@ -55,7 +55,7 @@ const TodoDrawer = ({ openDrawer, setOpenDrawer }) => {
                         </ListItemButton>
                     </ListItem>
                 </Link>
-                <Link href='/' color="inherit" underline='none'>
+                <Link href='/logout' color="inherit" underline='none'>
                     <ListItem disablePadding>
                         <ListItemButton>
                             <ListItemIcon>
