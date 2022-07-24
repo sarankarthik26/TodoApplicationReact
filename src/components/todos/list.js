@@ -19,6 +19,7 @@ import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import React, { useState } from "react";
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import Tooltip from '@mui/material/Tooltip';
 
 export const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -107,24 +108,33 @@ const CardList = ({ element, persistTickUpdate, persistDelete, persistEdit }) =>
                 </Collapse>
 
                 <CardActions disableSpacing>
-                    <Checkbox checked={tick} onChange={handleTick} icon={<DoneOutlineIcon />} checkedIcon={<DoneIcon sx={{ "color": "green" }} />} />
+                    <Checkbox checked={tick} onChange={handleTick}
+                        icon={<DoneOutlineIcon />} checkedIcon={<DoneIcon sx={{ "color": "green" }} />}
+                    />
                     {edit
                         ? <>
-                            <IconButton onClick={handleEdit}>
-                                <EditIcon />
-                            </IconButton>
+                            <Tooltip title="Save Edit">
+                                <IconButton onClick={handleEdit}>
+                                    <EditIcon />
+                                </IconButton>
+                            </Tooltip>
                         </>
                         : <>
-                            <IconButton onClick={() => {
-                                setEdit(true);
-                                setExpanded(true);
-                            }}>
-                                <EditOutlinedIcon />
-                            </IconButton>
-                        </>}
-                    <IconButton onClick={deleteFunction}>
-                        <DeleteOutlineIcon />
-                    </IconButton>
+                            <Tooltip title="Edit">
+                                <IconButton onClick={() => {
+                                    setEdit(true);
+                                    setExpanded(true);
+                                }}>
+                                    <EditOutlinedIcon />
+                                </IconButton>
+                            </Tooltip>
+                        </>
+                    }
+                    <Tooltip title="Delete">
+                        <IconButton onClick={deleteFunction}>
+                            <DeleteOutlineIcon />
+                        </IconButton>
+                    </Tooltip>
 
                 </CardActions>
 
