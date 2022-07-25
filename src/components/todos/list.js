@@ -20,6 +20,8 @@ import Typography from '@mui/material/Typography';
 import React, { useState } from "react";
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import Tooltip from '@mui/material/Tooltip';
+import SaveAsIcon from '@mui/icons-material/SaveAs';
+import InputAdornment from '@mui/material/InputAdornment';
 
 export const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -68,11 +70,10 @@ const CardList = ({ element, persistTickUpdate, persistDelete, persistEdit }) =>
     const [isDeleted, setIsDeleted] = useState(false);
     const [edit, setEdit] = useState(false);
     const [desc, setDesc] = useState(element.description);
-    console.log(element.id);
 
     const handleTick = () => {
-        setTick(!tick);
         persistTickUpdate(element.id, !tick);
+        setTick(!tick);
     }
 
     const deleteFunction = () => {
@@ -101,7 +102,18 @@ const CardList = ({ element, persistTickUpdate, persistDelete, persistEdit }) =>
                     <CardContent sx={{ "display": "flex", "flexDirection": "column" }}>
                         <Typography variant="body1" paddingBottom={"1em"}>Category - {element.category}</Typography>
                         {edit
-                            ? <TextField label="description" sx={{ "textAlign": "justify" }} multiline value={desc} onChange={(e) => setDesc(e.target.value)} />
+                            ? <TextField label="description" sx={{ "textAlign": "justify" }} multiline value={desc} onChange={(e) => setDesc(e.target.value)}
+                                InputProps={{
+                                    endAdornment:
+                                        <InputAdornment position="end" >
+                                            <Tooltip title="Save Edit">
+                                                <IconButton onClick={handleEdit} edge="end" >
+                                                    <SaveAsIcon />
+                                                </IconButton>
+                                            </Tooltip>
+                                        </InputAdornment>
+                                }}
+                            />
                             : <Typography paragraph sx={{ "textAlign": "justify" }}>{desc}</Typography>
                         }
                     </CardContent>
@@ -113,7 +125,7 @@ const CardList = ({ element, persistTickUpdate, persistDelete, persistEdit }) =>
                     />
                     {edit
                         ? <>
-                            <Tooltip title="Save Edit">
+                            <Tooltip title="Close Edit">
                                 <IconButton onClick={handleEdit}>
                                     <EditIcon />
                                 </IconButton>

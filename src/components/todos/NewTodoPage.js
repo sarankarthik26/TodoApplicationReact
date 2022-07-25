@@ -69,7 +69,7 @@ const NewTodoPage = () => {
                             </MenuItem>
                         ))}
                     </TextField>
-                    <TextField label="Describe your todo" onChange={e => setDescription(e.target.value)} sx={{ "marginBottom": "20px" }} autoComplete="off" />
+                    <TextField multiline label="Describe your todo" onChange={e => setDescription(e.target.value)} sx={{ "marginBottom": "20px" }} autoComplete="off" />
                     <Button type="submit" variant="contained" endIcon={<AddIcon />}
                         sx={[
                             { backgroundColor: "green", fontFamily: "'IBM Plex Sans'" },

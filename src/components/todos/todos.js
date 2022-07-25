@@ -11,8 +11,12 @@ const Todos = ({ BodyComponent }) => {
 
     return (
         <Grid>
-            <Box width="100%" margin={"0 auto"} display="flex" justifyContent={"center"} paddingTop={"125px"}>
-                <AppBar elevation={0} color="transparent" position="fixed" sx={{ top: 0 }}>
+            <Box sx={{
+                width: "100%", margin: "0 auto", display: "flex", justifyContent: "center", height: "100vh", overflow: "scroll",
+                backgroundImage: `url(${process.env.PUBLIC_URL + "pexelsBgTry6.jpg"})`, backgroundSize: "cover"
+            }}>
+                <AppBar elevation={0} color="transparent" position="fixed"
+                    sx={{ top: 0, backgroundImage: `url(${process.env.PUBLIC_URL + "pexelsBgTry6.jpg"})`, backgroundSize: "cover", backgroundAttachment: "fixed" }}>
                     <Toolbar sx={{ marginTop: "3vh", marginBottom: "3vh", width: "80%", marginX: "auto" }}>
                         <IconButton sx={{ "position": "fixed", "left": "5vw", "cursor": "pointer" }} onClick={() => setOpenDrawer(true)}>
                             <NavigateNextIcon />
@@ -29,7 +33,7 @@ const Todos = ({ BodyComponent }) => {
 
                 <TodoDrawer openDrawer={openDrawer} setOpenDrawer={setOpenDrawer} />
 
-                <Container>
+                <Container sx={{ "marginTop": "17vh" }}>  {/* 125px */}
                     {BodyComponent}
                 </Container>
             </Box>
