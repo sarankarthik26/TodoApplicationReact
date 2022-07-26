@@ -30,8 +30,8 @@ function App() {
       <Routes>
         <Route index element={<WelcomePage UserName={UserName} />} />
         <Route path="/todos" element={<ProtectedRoute isAuthenticated={UserName} />}>
-          <Route index element={<Todos BodyComponent={<TodoMasonry />} />} />
-          <Route path="new" element={<Todos BodyComponent={<NewTodoPage />} />} />
+          <Route index element={<Todos BodyComponent={<TodoMasonry />} bgNo={"6"} />} />
+          <Route path="new" element={<Todos BodyComponent={<NewTodoPage />} bgNo={"1"} />} />
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<ProtectedRoute isAuthenticated={UserName}><Logout /></ProtectedRoute>} />

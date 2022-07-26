@@ -4,6 +4,7 @@ import { deleter, getter, patcher } from "../../apiService";
 import CardList from "./list";
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
+import AddTodoCard from "./AddTodoCard";
 
 const TodoMasonry = () => {
     const [data, setData] = useState(null);
@@ -32,7 +33,8 @@ const TodoMasonry = () => {
         <>
             {
                 data
-                    ? <Masonry columns={3} spacing={3}>
+                    ? <Masonry columns={3} spacing={3} sx={{ margin: 0, alignContent: "center" }}>
+                        <AddTodoCard />
                         {data.map(element => {
                             return <CardList key={element.id} element={element} persistTickUpdate={persistTickUpdate} persistDelete={persistDelete} persistEdit={persistEdit} />
                         })}

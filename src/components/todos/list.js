@@ -96,11 +96,11 @@ const CardList = ({ element, persistTickUpdate, persistDelete, persistEdit }) =>
                             <ExpandMoreIcon />
                         </ExpandMore>
                     }
-                    title={<Typography>{element.todoName}</Typography>} />
+                    title={<Typography fontFamily={"poppins"} fontWeight="bold">{element.todoName}</Typography>} />
 
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
                     <CardContent sx={{ "display": "flex", "flexDirection": "column" }}>
-                        <Typography variant="body1" paddingBottom={"1em"}>Category - {element.category}</Typography>
+                        <Typography variant="body1" paddingBottom={"1em"} fontFamily="IBM Plex Sans">Category - {element.category}</Typography>
                         {edit
                             ? <TextField label="description" sx={{ "textAlign": "justify" }} multiline value={desc} onChange={(e) => setDesc(e.target.value)}
                                 InputProps={{

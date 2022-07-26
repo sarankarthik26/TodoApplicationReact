@@ -58,7 +58,7 @@ const NewTodoPage = () => {
     };
 
     return (
-        <Grid item sx={{ "backgroundColor": "white", minHeight: "40vh", minWidth: "34vw", padding: "4em", borderRadius: "8px" }}>
+        <Grid item sx={{ "backgroundColor": "white", minHeight: "40vh", minWidth: "34vw", padding: "4em", borderRadius: "8px", maxWidth: "900px" }}>
             <Box>
                 <form onSubmit={handleCreateSubmit} style={{ "display": "flex", "flexDirection": 'column' }}>
                     <TextField label="Title" type="text" placeholder="Enter Todo name" onChange={e => setName(e.target.value)} required sx={{ "marginBottom": "20px" }} autoComplete="off" />
@@ -79,7 +79,7 @@ const NewTodoPage = () => {
                 {error && <Typography>{error}</Typography>}
             </Box>
 
-            <Box>
+            <Box paddingTop={"20px"}>
                 <Card sx={{ maxWidth: 345 }}>
                     <CardHeader
                         avatar={getAvatar(category)}
@@ -96,9 +96,12 @@ const NewTodoPage = () => {
                         </CardContent>
                     </Collapse>
 
-                    <CardActions disableSpacing>
-                        <IconButton> <DoneOutlineIcon /> </IconButton>
-                        <IconButton> <DeleteOutlineIcon /> </IconButton>
+                    <CardActions sx={{ "justifyContent": "space-between" }} disableSpacing>
+                        <div>
+                            <IconButton> <DoneOutlineIcon /> </IconButton>
+                            <IconButton> <DeleteOutlineIcon /> </IconButton>
+                        </div>
+                        <Typography paddingRight={"10px"} color="GrayText" fontFamily={"IBM Plex Sans"}>Preview</Typography>
                     </CardActions>
 
                 </Card>
