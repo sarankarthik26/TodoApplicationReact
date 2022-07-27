@@ -8,7 +8,6 @@ import TodoDrawer from './TodoDrawer';
 const Todos = ({ BodyComponent, bgNo }) => {
     const navigate = useNavigate();
     const [openDrawer, setOpenDrawer] = useState(false);
-    console.log(typeof (bgNo));
 
     return (
         <Grid>
@@ -34,7 +33,7 @@ const Todos = ({ BodyComponent, bgNo }) => {
 
                 <TodoDrawer openDrawer={openDrawer} setOpenDrawer={setOpenDrawer} />
 
-                <Container sx={{ "marginTop": "17vh", "display": "flex", "justifyContent": "center", "alignItems": "flex-start" }}>  {/* 125px */}
+                <Container sx={{ "marginTop": "16vh", "display": "flex", "justifyContent": "center", "alignItems": "flex-start" }}>  {/* 125px */}
                     {BodyComponent}
                 </Container>
             </Box>

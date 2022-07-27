@@ -1,14 +1,19 @@
 import { Masonry } from "@mui/lab";
+import { ButtonGroup, Fab, Grid } from "@mui/material";
+import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
 import { useEffect, useState } from "react";
 import { deleter, getter, patcher } from "../../apiService";
-import CardList from "./list";
-import CircularProgress from '@mui/material/CircularProgress';
-import Box from '@mui/material/Box';
 import AddTodoCard from "./AddTodoCard";
+import FilterSelect from "./FilterSelect";
+import CardList from "./list";
+// import FormLabel from '@mui/material/FormLabel';
 
 const TodoMasonry = () => {
     const [data, setData] = useState(null);
     const [error, setError] = useState(null);
+    const [filterButton, setFilterButton] = useState("all");
+    const [chosenCategory, setChosenCategory] = useState([]);
 
     useEffect(() => {
         getter("/todos", setData, setError);
@@ -30,10 +35,27 @@ const TodoMasonry = () => {
     }
 
     return (
-        <>
+        <Box width={"inherit"}>
+            <Grid display={"flex"} justifyContent="space-around" alignItems={"center"} flexDirection={{ "sm": "row", "xs": "column" }}>
+                <ButtonGroup>
+                    {["all", "pending", "done"].map(Option => {
+                        return (
+                            <Fab color={filterButton === Option ? "secondary" : ""} key={Option}
+                                sx={{ "fontFamily": "IBM Plex Sans", boxShadow: "none", backgroundColor: filterButton !== Option ? "transparent" : "" }}
+                                variant="extended"
+                                onClick={() => {
+                                    setFilterButton(Option);
+                                }}>
+                                {Option}
+                            </Fab>
+                        )
+                    })}
+                </ButtonGroup>
+                <FilterSelect chosenCategory={chosenCategory} setChosenCategory={setChosenCategory} />
+            </Grid>
             {
                 data
-                    ? <Masonry columns={3} spacing={3} sx={{ margin: 0, alignContent: "center" }}>
+                    ? <Masonry columns={{ "sm": 1, "xs": 1, "md": 3, "lg": 4 }} spacing={3} sx={{ margin: 0, alignContent: "center" }}>
                         <AddTodoCard />
                         {data.map(element => {
                             return <CardList key={element.id} element={element} persistTickUpdate={persistTickUpdate} persistDelete={persistDelete} persistEdit={persistEdit} />
@@ -43,7 +65,7 @@ const TodoMasonry = () => {
                         <CircularProgress />
                     </Box>
             }
-        </>
+        </Box>
     );
 }
 
