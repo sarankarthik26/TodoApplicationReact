@@ -20,6 +20,7 @@ const TodoMasonry = () => {
     useEffect(() => {
         const searchParam = new URLSearchParams();
         getSearchParam(filterButton, searchParam);
+        setChosenCategory([]);
 
         getter("/todos?" + searchParam, setData, setError, setShowData);
 
