@@ -13,7 +13,6 @@ const Logout = () => {
 
     const handleClose = ({ link }) => {
         setOpen(false);
-        console.log(link);
         link ? navigate(link) : navigate(-1);
     }
 

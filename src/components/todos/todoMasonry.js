@@ -7,10 +7,12 @@ import { deleter, getter, patcher } from "../../apiService";
 import AddTodoCard from "./AddTodoCard";
 import FilterSelect from "./FilterSelect";
 import CardList from "./list";
-// import FormLabel from '@mui/material/FormLabel';
+
+const categoryFilters = ["all", "pending", "done"];
 
 const TodoMasonry = () => {
     const [data, setData] = useState(null);
+    const [showData, setShowData] = useState(null);
     const [error, setError] = useState(null);
     const [filterButton, setFilterButton] = useState("all");
     const [chosenCategory, setChosenCategory] = useState([]);
@@ -19,10 +21,21 @@ const TodoMasonry = () => {
         const searchParam = new URLSearchParams();
         getSearchParam(filterButton, searchParam);
 
-        getter("/todos?" + searchParam, setData, setError);
+        getter("/todos?" + searchParam, setData, setError, setShowData);
 
         if (error) { return <p>Please refresh the page</p> }
     }, [filterButton])
+
+    useEffect(() => {
+        if (showData) {
+            if (chosenCategory.length === 0) {
+                setData(showData);
+            }
+            else {
+                setData(showData.filter(datum => chosenCategory.includes(datum.category)))
+            }
+        }
+    }, [chosenCategory])
 
     const persistTickUpdate = (id, bool) => {
         patcher(`/todos/${id}`, { "isDone": bool })
@@ -42,7 +55,7 @@ const TodoMasonry = () => {
         <Box width={"inherit"}>
             <Grid display={"flex"} justifyContent="space-around" alignItems={"center"} flexDirection={{ "sm": "row", "xs": "column" }}>
                 <ButtonGroup>
-                    {["all", "pending", "done"].map(Option => {
+                    {categoryFilters.map(Option => {
                         return (
                             <Fab color={filterButton === Option ? "secondary" : ""} key={Option}
                                 sx={{ "fontFamily": "IBM Plex Sans", boxShadow: "none", backgroundColor: filterButton !== Option ? "transparent" : "" }}

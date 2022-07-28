@@ -7,14 +7,16 @@ const config = {
     }
 };
 
-export const getter = (url, setData, setError) => {
+export const getter = (url, setData, setError, setShowData) => {
     config.headers.Authorization = sessionStorage.getItem("token");
 
     axios.get(urls.springUrl + url, config).then(res => {
         setData(res.data);
+        setShowData(res.data);
         setError(null);
     }).catch(err => {
         setData(null);
+        setShowData(null);
         setError(err);
     })
 }

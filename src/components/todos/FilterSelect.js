@@ -21,14 +21,11 @@ const MenuProps = {
 };
 
 export default function FilterSelect({ chosenCategory, setChosenCategory }) {
-    console.log(chosenCategory);
-
     const handleChange = (event) => {
         const {
             target: { value },
         } = event;
         setChosenCategory(
-            // On autofill we get a stringified value.
             typeof value === 'string' ? value.split(',') : value,
         );
     };

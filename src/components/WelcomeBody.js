@@ -7,7 +7,7 @@ const WelcomeBody = () => {
     const navigate = useNavigate();
 
     return (
-        <Grid disableGutters sx={{ display: "flex", alignItems: "center", margin: 0 }}
+        <Grid item disableGutters sx={{ display: "flex", alignItems: "center", margin: 0 }}
             width={{ xs: "39.96vh", md: 400, lg: 450 }} height={{ xs: "34.965vh", md: 350, lg: 350 }} lg={6} padding="0 1.5625vw" borderRadius={"5%"}>
             <Typography variant='h5' fontSize={"2.3976vh"} color={"white"} fontFamily={"'IBM Plex Sans', sans-serif"}>
                 Welcome to <Typography variant='h3' display={"inline"} fontFamily={"Annie Use Your Telescope"} fontSize={"4.7952vh"}> To-Do List!</Typography>
