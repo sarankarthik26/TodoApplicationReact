@@ -16,9 +16,13 @@ const TodoMasonry = () => {
     const [chosenCategory, setChosenCategory] = useState([]);
 
     useEffect(() => {
-        getter("/todos", setData, setError);
+        const searchParam = new URLSearchParams();
+        getSearchParam(filterButton, searchParam);
+
+        getter("/todos?" + searchParam, setData, setError);
+
         if (error) { return <p>Please refresh the page</p> }
-    }, [])
+    }, [filterButton])
 
     const persistTickUpdate = (id, bool) => {
         patcher(`/todos/${id}`, { "isDone": bool })
@@ -56,7 +60,7 @@ const TodoMasonry = () => {
             {
                 data
                     ? <Masonry columns={{ "sm": 1, "xs": 1, "md": 3, "lg": 4 }} spacing={3} sx={{ margin: 0, alignContent: "center" }}>
-                        <AddTodoCard />
+                        {filterButton !== "done" && <AddTodoCard />}
                         {data.map(element => {
                             return <CardList key={element.id} element={element} persistTickUpdate={persistTickUpdate} persistDelete={persistDelete} persistEdit={persistEdit} />
                         })}
@@ -70,3 +74,13 @@ const TodoMasonry = () => {
 }
 
 export default TodoMasonry;
+
+function getSearchParam(filterButton, searchParam) {
+    switch (filterButton) {
+        case "pending": searchParam.set("isDone", "false");
+            break;
+        case "done": searchParam.set("isDone", "true");
+            break;
+        default: searchParam.delete("isDone");
+    }
+}
